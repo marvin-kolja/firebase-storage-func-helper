@@ -1,0 +1,49 @@
+{
+  "name": "firestore-function-helper",
+  "version": "1.0.0",
+  "description": "A helper to simplify the usage of firebase storage functions",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "prettier --ignore-unknown '**/*'",
+    "prettier:write": "npm run prettier -- --write",
+    "prettier:check": "npm run prettier -- --check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marvin-kolja/firestore-function-helper.git"
+  },
+  "packageManager": "npm@9.8.0",
+  "keywords": [
+    "firestore",
+    "storage",
+    "cloud",
+    "functions",
+    "content-type",
+    "path"
+  ],
+  "author": "Marvin Willms",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marvin-kolja/firestore-function-helper/issues"
+  },
+  "homepage": "https://github.com/marvin-kolja/firestore-function-helper#readme",
+  "devDependencies": {
+    "prettier": "3.2.4",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "firebase-functions": "^4.6.0"
+  },
+  "dependencies": {
+    "path-to-regexp": "^6.2.1"
+  }
+}
