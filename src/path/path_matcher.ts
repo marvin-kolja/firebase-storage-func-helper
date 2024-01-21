@@ -1,7 +1,7 @@
 import type { ExtractRouteParams } from './extract_params'
 import { match } from 'path-to-regexp'
 
-const pathMatcher = <T extends string>(pathTemplate: T) => {
+const createPathMatcher = <T extends string>(pathTemplate: T) => {
   const fn = match(pathTemplate, { decode: decodeURIComponent })
   return (filePath?: string) => {
     if (!filePath) {
@@ -21,4 +21,4 @@ const pathMatcher = <T extends string>(pathTemplate: T) => {
   }
 }
 
-export { pathMatcher }
+export { createPathMatcher }
