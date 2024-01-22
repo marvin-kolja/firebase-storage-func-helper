@@ -22,7 +22,10 @@ const createFileHandler = <
 
   return (handler: HandlerV2<PathTemplate, ContentTypeParam>) => {
     return (event: StorageEvent) => {
-      const file = fileMatcher(event.data.name, event.data.contentType)
+      const file = fileMatcher({
+        path: event.data.name,
+        contentType: event.data.contentType,
+      })
       if (!file) {
         return
       }

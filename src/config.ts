@@ -4,6 +4,6 @@ export type Config<
   PathTemplate extends string,
   ContentTypeParam extends ContentType,
 > = {
-  path: PathTemplate
-  contentType: ContentTypeParam
+  path?: PathTemplate
+  contentType?: ContentTypeParam
 }

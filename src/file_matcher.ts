@@ -6,32 +6,40 @@ type FileMatchResult<
   PathTemplate extends string,
   ContentTypeParam extends ContentType,
 > = {
-  path: ReturnType<ReturnType<typeof createPathMatcher<PathTemplate>>>
-  contentType: ReturnType<
+  path?: ReturnType<ReturnType<typeof createPathMatcher<PathTemplate>>>
+  contentType?: ReturnType<
     ReturnType<typeof createContentTypeMatcher<ContentTypeParam>>
   >
+}
+
+type FileMatcherInput = {
+  path: string | undefined
+  contentType: string | undefined
 }
 
 const createFileMatcher = <PathTemplate extends string, CT extends ContentType>(
   config: Config<PathTemplate, CT>,
 ) => {
-  const matchPath = createPathMatcher(config.path)
-  const matchContentType = createContentTypeMatcher(config.contentType)
+  const matchers = {
+    path: config.path ? createPathMatcher(config.path) : undefined,
+    contentType: config.contentType
+      ? createContentTypeMatcher(config.contentType)
+      : undefined,
+  } as const
 
   return (
-    path: string | undefined,
-    contentType: string | undefined,
+    input: FileMatcherInput,
   ): FileMatchResult<PathTemplate, CT> | false => {
-    const pathMatchResult = matchPath(path)
-    const contentTypeMatchResult = matchContentType(contentType)
-    if (!pathMatchResult || !contentTypeMatchResult) {
+    const data = {
+      path: matchers.path?.(input.path),
+      contentType: matchers.contentType?.(input.contentType),
+    }
+
+    if (data.path === false || data.contentType === false) {
       return false
     }
 
-    return {
-      path: pathMatchResult,
-      contentType: contentTypeMatchResult,
-    }
+    return data as FileMatchResult<PathTemplate, CT>
   }
 }
 

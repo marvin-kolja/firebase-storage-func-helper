@@ -8,10 +8,10 @@ Use the `createFileHandler` function to create a handler. Depending on the impor
 
 The handler has the following configuration:
 
-| Option      | Type                           | Description                                                                                            |
-| ----------- | ------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| path        | `string`                       | The path the file needs to match. It can contain dynamic parameters such as `:userId` that are parsed. |
-| contentType | `string  \| readonly string[]` | The content type/s of the file to handle.                                                              |
+| Option                 | Type                           | Description                                                                                            |
+| ---------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| path (optional)        | `string`                       | The path the file needs to match. It can contain dynamic parameters such as `:userId` that are parsed. |
+| contentType (optional) | `string  \| readonly string[]` | The content type/s of the file to handle.                                                              |
 
 You can import the `createFileHandler` function from the `v1` or `v2` folder depending on which cloud function version you're using. The default entry point is `v2`.
 
