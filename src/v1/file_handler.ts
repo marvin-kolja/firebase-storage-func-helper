@@ -6,7 +6,7 @@ import type { EventContext } from 'firebase-functions'
 import { ObjectMetadata } from 'firebase-functions/v1/storage'
 
 type HandlerV1<T> = (
-  file: T,
+  matchResult: T,
   object: ObjectMetadata,
   context: EventContext,
 ) => void | Promise<void>
@@ -27,15 +27,15 @@ const createFileHandler = <
 
   return (handler: Handler) => {
     return (object: ObjectMetadata, context: EventContext) => {
-      const file = fileMatcher({
+      const matchResult = fileMatcher({
         path: object.name,
         contentType: object.contentType,
         size: parseInt(object.size),
       })
-      if (!file) {
+      if (!matchResult) {
         return
       }
-      return handler(file, object, context)
+      return handler(matchResult, object, context)
     }
   }
 }

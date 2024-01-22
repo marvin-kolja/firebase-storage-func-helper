@@ -32,12 +32,12 @@ const onChatAttachmentHandler = createFileHandler({
     min: 1 * 1024 * 1024, // 1 MB
     max: 10 * 1024 * 1024, // 10 MB
   },
-})((file, object, context) => {
+})((matchResult, object, context) => {
   const {
     path,
     contentType, // 'video/mp4' | 'video/quicktime'
     size,
-  } = file
+  } = matchResult
 
   const {
     chatId, // string
@@ -79,12 +79,12 @@ const onChatAttachmentHandler = createFileHandler({
     min: 1 * 1024 * 1024, // 1 MB
     max: 10 * 1024 * 1024, // 10 MB
   },
-})((file, event) => {
+})((matchResult, event) => {
   const {
     path,
     contentType, // 'video/mp4' | 'video/quicktime'
     size,
-  } = file
+  } = matchResult
 
   const {
     chatId, // string

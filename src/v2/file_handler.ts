@@ -4,7 +4,10 @@ import { createFileMatcher, FileMatchResult } from '../file_matcher'
 
 import type { StorageEvent } from 'firebase-functions/v2/storage'
 
-type HandlerV2<T> = (file: T, event: StorageEvent) => void | Promise<void>
+type HandlerV2<T> = (
+  matchResult: T,
+  event: StorageEvent,
+) => void | Promise<void>
 
 const createFileHandler = <
   PathTemplate extends string | undefined,
@@ -22,15 +25,15 @@ const createFileHandler = <
 
   return (handler: Handler) => {
     return (event: StorageEvent) => {
-      const file = fileMatcher({
+      const matchResult = fileMatcher({
         path: event.data.name,
         contentType: event.data.contentType,
         size: event.data.size,
       })
-      if (!file) {
+      if (!matchResult) {
         return
       }
-      return handler(file, event)
+      return handler(matchResult, event)
     }
   }
 }
