@@ -2,8 +2,9 @@
   "name": "firestore-function-helper",
   "version": "1.0.0",
   "description": "A helper to simplify the usage of firebase storage functions",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
