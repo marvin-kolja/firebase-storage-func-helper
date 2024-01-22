@@ -9,18 +9,23 @@ type HandlerV2<T> = (file: T, event: StorageEvent) => void | Promise<void>
 const createFileHandler = <
   PathTemplate extends string | undefined,
   ContentTypeParam extends ContentType | undefined,
+  Min extends number | undefined,
+  Max extends number | undefined,
 >(
-  opts: Config<PathTemplate, ContentTypeParam>,
+  opts: Config<PathTemplate, ContentTypeParam, Min, Max>,
 ) => {
   const fileMatcher = createFileMatcher(opts)
 
-  type Handler = HandlerV2<FileMatchResult<PathTemplate, ContentTypeParam>>
+  type Handler = HandlerV2<
+    FileMatchResult<PathTemplate, ContentTypeParam, Min, Max>
+  >
 
   return (handler: Handler) => {
     return (event: StorageEvent) => {
       const file = fileMatcher({
         path: event.data.name,
         contentType: event.data.contentType,
+        size: event.data.size,
       })
       if (!file) {
         return

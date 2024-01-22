@@ -8,10 +8,11 @@ Use the `createFileHandler` function to create a handler. Depending on the impor
 
 The handler has the following configuration:
 
-| Option                 | Type                           | Description                                                                                            |
-| ---------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| path (optional)        | `string`                       | The path the file needs to match. It can contain dynamic parameters such as `:userId` that are parsed. |
-| contentType (optional) | `string  \| readonly string[]` | The content type/s of the file to handle.                                                              |
+| Option                 | Type                             | Description                                                                                                                                                                     |
+| ---------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| path (optional)        | `string`                         | The path the file needs to match. It can contain dynamic parameters such as `:userId` that are parsed.                                                                          |
+| contentType (optional) | `string  \| readonly string[]`   | The content type/s of the file to handle.                                                                                                                                       |
+| size (optional)        | `{ min?: number, max?: number }` | The min and max size that needs to match. One must be provided. <br/> An error is thrown when neither is provided or they are conflicting (negative or max is smaller then min) |
 
 You can import the `createFileHandler` function from the `v1` or `v2` folder depending on which cloud function version you're using. The default entry point is `v2`.
 
@@ -27,10 +28,15 @@ import { createFileHandler } from 'firestore-function-helper/dist/v1'
 const onChatAttachmentHandler = createFileHandler({
   path: 'chats/:chatId/attachments/:attachmentId',
   contentType: ['video/mp4', 'video/quicktime'] as const, // If not `as const` it cannot infer the type
+  size: {
+    min: 1 * 1024 * 1024, // 1 MB
+    max: 10 * 1024 * 1024, // 10 MB
+  },
 })((file, object, context) => {
   const {
     path,
     contentType, // 'video/mp4' | 'video/quicktime'
+    size,
   } = file
 
   const {
@@ -69,10 +75,15 @@ import { createFileHandler } from 'firestore-function-helper/dist/v2'
 const onChatAttachmentHandler = createFileHandler({
   path: 'chats/:chatId/attachments/:attachmentId',
   contentType: ['video/mp4', 'video/quicktime'] as const, // If not `as const` it cannot infer the type
+  size: {
+    min: 1 * 1024 * 1024, // 1 MB
+    max: 10 * 1024 * 1024, // 10 MB
+  },
 })((file, event) => {
   const {
     path,
     contentType, // 'video/mp4' | 'video/quicktime'
+    size,
   } = file
 
   const {
