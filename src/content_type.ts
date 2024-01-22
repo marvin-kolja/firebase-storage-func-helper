@@ -15,17 +15,5 @@ const isContentType = <ContentTypeParam extends ContentType>(
   }
 }
 
-const createContentTypeMatcher = <ContentTypeParam extends ContentType>(
-  contentType: ContentTypeParam,
-) => {
-  return (type?: string): type is FlattenContentType<ContentTypeParam> => {
-    if (!type) {
-      return false
-    }
-
-    return isContentType(contentType, type)
-  }
-}
-
-export { createContentTypeMatcher }
+export { isContentType }
 export type { ContentType, FlattenContentType }

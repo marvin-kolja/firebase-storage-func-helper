@@ -1,13 +1,16 @@
-import type { ContentType, FlattenContentType } from './content_type'
+import type { ContentType } from './content_type'
 import type { Config } from './config'
-import type { StorageFile } from './file'
-import { createPathMatcher } from './path/path_matcher'
-import { createContentTypeMatcher } from './content_type'
+import { createPathMatcher, createContentTypeMatcher } from './matcher'
 
 type FileMatchResult<
   PathTemplate extends string,
-  CT extends ContentType,
-> = StorageFile<PathTemplate, CT>
+  ContentTypeParam extends ContentType,
+> = {
+  path: ReturnType<ReturnType<typeof createPathMatcher<PathTemplate>>>
+  contentType: ReturnType<
+    ReturnType<typeof createContentTypeMatcher<ContentTypeParam>>
+  >
+}
 
 const createFileMatcher = <PathTemplate extends string, CT extends ContentType>(
   config: Config<PathTemplate, CT>,
@@ -20,15 +23,14 @@ const createFileMatcher = <PathTemplate extends string, CT extends ContentType>(
     contentType: string | undefined,
   ): FileMatchResult<PathTemplate, CT> | false => {
     const pathMatchResult = matchPath(path)
-    if (pathMatchResult === null || !matchContentType(contentType)) {
+    const contentTypeMatchResult = matchContentType(contentType)
+    if (!pathMatchResult || !contentTypeMatchResult) {
       return false
     }
 
     return {
-      pathTemplate: pathMatchResult.pathTemplate,
-      path: pathMatchResult.path,
-      params: pathMatchResult.params,
-      contentType: contentType as FlattenContentType<CT>,
+      path: pathMatchResult,
+      contentType: contentTypeMatchResult,
     }
   }
 }

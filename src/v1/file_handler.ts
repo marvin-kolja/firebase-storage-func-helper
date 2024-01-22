@@ -1,7 +1,6 @@
-import type { StorageFile } from '../file'
 import type { ContentType } from '../content_type'
 import type { Config } from '../config'
-import { createFileMatcher } from '../file_matcher'
+import { createFileMatcher, FileMatchResult } from '../file_matcher'
 
 import type { EventContext } from 'firebase-functions'
 import { ObjectMetadata } from 'firebase-functions/v1/storage'
@@ -10,7 +9,7 @@ type HandlerV1<
   PathTemplate extends string,
   ContentTypeParam extends ContentType,
 > = (
-  file: StorageFile<PathTemplate, ContentTypeParam>,
+  file: FileMatchResult<PathTemplate, ContentTypeParam>,
   object: ObjectMetadata,
   context: EventContext,
 ) => void | Promise<void>

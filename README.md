@@ -29,14 +29,14 @@ const onChatAttachmentHandler = createFileHandler({
   contentType: ['video/mp4', 'video/quicktime'] as const, // If not `as const` it cannot infer the type
 })((file, object, context) => {
   const {
-    params,
+    path,
     contentType, // 'video/mp4' | 'video/quicktime'
   } = file
 
   const {
     chatId, // string
     attachmentId, // string
-  } = params
+  } = path.params
 })
 
 // register your handler
@@ -71,14 +71,14 @@ const onChatAttachmentHandler = createFileHandler({
   contentType: ['video/mp4', 'video/quicktime'] as const, // If not `as const` it cannot infer the type
 })((file, event) => {
   const {
-    params,
+    path,
     contentType, // 'video/mp4' | 'video/quicktime'
   } = file
 
   const {
     chatId, // string
     attachmentId, // string
-  } = params
+  } = path.params
 })
 
 // register your handler

@@ -1,7 +1,6 @@
-import type { StorageFile } from '../file'
 import type { ContentType } from '../content_type'
 import type { Config } from '../config'
-import { createFileMatcher } from '../file_matcher'
+import { createFileMatcher, FileMatchResult } from '../file_matcher'
 
 import type { StorageEvent } from 'firebase-functions/v2/storage'
 
@@ -9,7 +8,7 @@ type HandlerV2<
   PathTemplate extends string,
   ContentTypeParam extends ContentType,
 > = (
-  file: StorageFile<PathTemplate, ContentTypeParam>,
+  file: FileMatchResult<PathTemplate, ContentTypeParam>,
   event: StorageEvent,
 ) => void | Promise<void>
 
