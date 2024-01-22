@@ -4,23 +4,19 @@ import { createFileMatcher, FileMatchResult } from '../file_matcher'
 
 import type { StorageEvent } from 'firebase-functions/v2/storage'
 
-type HandlerV2<
-  PathTemplate extends string,
-  ContentTypeParam extends ContentType,
-> = (
-  file: FileMatchResult<PathTemplate, ContentTypeParam>,
-  event: StorageEvent,
-) => void | Promise<void>
+type HandlerV2<T> = (file: T, event: StorageEvent) => void | Promise<void>
 
 const createFileHandler = <
-  PathTemplate extends string,
-  ContentTypeParam extends ContentType,
+  PathTemplate extends string | undefined,
+  ContentTypeParam extends ContentType | undefined,
 >(
   opts: Config<PathTemplate, ContentTypeParam>,
 ) => {
   const fileMatcher = createFileMatcher(opts)
 
-  return (handler: HandlerV2<PathTemplate, ContentTypeParam>) => {
+  type Handler = HandlerV2<FileMatchResult<PathTemplate, ContentTypeParam>>
+
+  return (handler: Handler) => {
     return (event: StorageEvent) => {
       const file = fileMatcher({
         path: event.data.name,

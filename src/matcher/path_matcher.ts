@@ -35,3 +35,4 @@ const createPathMatcher = <T extends string>(pathTemplate: T) => {
 }
 
 export { createPathMatcher }
+export type { PathMatchResult }

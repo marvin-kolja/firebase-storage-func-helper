@@ -1,15 +1,20 @@
 import type { ContentType } from './content_type'
 import type { Config } from './config'
-import { createPathMatcher, createContentTypeMatcher } from './matcher'
+import {
+  createPathMatcher,
+  createContentTypeMatcher,
+  PathMatchResult,
+  ContentTypeMatchResult,
+} from './matcher'
 
 type FileMatchResult<
-  PathTemplate extends string,
-  ContentTypeParam extends ContentType,
+  PathTemplate extends string | undefined,
+  ContentTypeParam extends ContentType | undefined,
 > = {
-  path?: ReturnType<ReturnType<typeof createPathMatcher<PathTemplate>>>
-  contentType?: ReturnType<
-    ReturnType<typeof createContentTypeMatcher<ContentTypeParam>>
-  >
+  path: PathTemplate extends string ? PathMatchResult<PathTemplate> : undefined
+  contentType: ContentTypeParam extends ContentType
+    ? ContentTypeMatchResult<ContentTypeParam>
+    : undefined
 }
 
 type FileMatcherInput = {
@@ -27,9 +32,9 @@ const createFileMatcher = <PathTemplate extends string, CT extends ContentType>(
       : undefined,
   } as const
 
-  return (
-    input: FileMatcherInput,
-  ): FileMatchResult<PathTemplate, CT> | false => {
+  type Result = FileMatchResult<PathTemplate, CT>
+
+  return (input: FileMatcherInput): Result | false => {
     const data = {
       path: matchers.path?.(input.path),
       contentType: matchers.contentType?.(input.contentType),
@@ -39,7 +44,7 @@ const createFileMatcher = <PathTemplate extends string, CT extends ContentType>(
       return false
     }
 
-    return data as FileMatchResult<PathTemplate, CT>
+    return data as Result
   }
 }
 

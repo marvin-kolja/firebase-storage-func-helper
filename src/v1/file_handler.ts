@@ -5,11 +5,8 @@ import { createFileMatcher, FileMatchResult } from '../file_matcher'
 import type { EventContext } from 'firebase-functions'
 import { ObjectMetadata } from 'firebase-functions/v1/storage'
 
-type HandlerV1<
-  PathTemplate extends string,
-  ContentTypeParam extends ContentType,
-> = (
-  file: FileMatchResult<PathTemplate, ContentTypeParam>,
+type HandlerV1<T> = (
+  file: T,
   object: ObjectMetadata,
   context: EventContext,
 ) => void | Promise<void>
@@ -22,7 +19,9 @@ const createFileHandler = <
 ) => {
   const fileMatcher = createFileMatcher(opts)
 
-  return (handler: HandlerV1<PathTemplate, ContentTypeParam>) => {
+  type Handler = HandlerV1<FileMatchResult<PathTemplate, ContentTypeParam>>
+
+  return (handler: Handler) => {
     return (object: ObjectMetadata, context: EventContext) => {
       const file = fileMatcher({
         path: object.name,

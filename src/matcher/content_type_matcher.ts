@@ -1,10 +1,13 @@
 import type { ContentType, FlattenContentType } from '../content_type'
 import { isContentType } from '../content_type'
 
+type ContentTypeMatchResult<ContentTypeParam extends ContentType> =
+  FlattenContentType<ContentTypeParam>
+
 const createContentTypeMatcher = <ContentTypeParam extends ContentType>(
   contentType: ContentTypeParam,
 ) => {
-  return (type?: string): FlattenContentType<ContentTypeParam> | false => {
+  return (type?: string): ContentTypeMatchResult<ContentTypeParam> | false => {
     if (!type) {
       return false
     }
@@ -18,3 +21,4 @@ const createContentTypeMatcher = <ContentTypeParam extends ContentType>(
 }
 
 export { createContentTypeMatcher }
+export type { ContentTypeMatchResult }
