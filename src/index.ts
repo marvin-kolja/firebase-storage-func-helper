@@ -1,1 +1,1 @@
-export { createFileHandler } from './file_handler'
+export { createFileHandler } from './v2/file_handler'
