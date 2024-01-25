@@ -1,5 +1,5 @@
 {
-  "name": "firestore-function-helper",
+  "name": "firebase-storage-func-helper",
   "version": "1.0.0",
   "description": "A helper to simplify the usage of firebase storage functions",
   "type": "module",
@@ -35,11 +35,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/marvin-kolja/firestore-function-helper.git"
+    "url": "https://github.com/marvin-kolja/firebase-storage-func-helper.git"
   },
   "packageManager": "npm@9.8.0",
   "keywords": [
-    "firestore",
+    "firebase",
     "storage",
     "cloud",
     "functions",
@@ -49,9 +49,9 @@
   "author": "Marvin Willms",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/marvin-kolja/firestore-function-helper/issues"
+    "url": "https://github.com/marvin-kolja/firebase-storage-func-helper/issues"
   },
-  "homepage": "https://github.com/marvin-kolja/firestore-function-helper#readme",
+  "homepage": "https://github.com/marvin-kolja/firebase-storage-func-helper#readme",
   "devDependencies": {
     "prettier": "3.2.4",
     "ts-node": "^10.9.2",

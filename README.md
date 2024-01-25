@@ -1,4 +1,4 @@
-# Firestore Function Helper
+# Firebase Storage Function Helper
 
 The main goal of this package is to provide a simple way to only handle firebase storage files that meet specific criteria. Currently, those are the path and content type. It automatically checks those and will not call the provided handler if either of those are not met.
 
@@ -19,8 +19,8 @@ You can import the `createFileHandler` function from the `v1` or `v2` folder dep
 ### V1
 
 ```typescript
-import { createFileHandler } from 'firestore-function-helper/v1'
-import { createFileHandler } from 'firestore-function-helper/dist/v1'
+import { createFileHandler } from 'firebase-storage-func-helper/v1'
+import { createFileHandler } from 'firebase-storage-func-helper/dist/v1'
 ```
 
 ```typescript
@@ -65,9 +65,9 @@ const onMultipleFile = firebaseFunctions
 ### V2
 
 ```typescript
-import { createFileHandler } from 'firestore-function-helper'
-import { createFileHandler } from 'firestore-function-helper/v2'
-import { createFileHandler } from 'firestore-function-helper/dist/v2'
+import { createFileHandler } from 'firebase-storage-func-helper'
+import { createFileHandler } from 'firebase-storage-func-helper/v2'
+import { createFileHandler } from 'firebase-storage-func-helper/dist/v2'
 ```
 
 ```typescript
