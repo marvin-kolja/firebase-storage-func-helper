@@ -8,22 +8,20 @@ import {
   ContentTypeMatchResult,
   SizeMatchResult,
 } from './matcher'
+import { SizeMatcherConfig } from './matcher/size_matcher'
 
-type FileMatchResult<
-  PathTemplate extends string | undefined,
-  ContentTypeParam extends ContentType | undefined,
-  Min extends number | undefined,
-  Max extends number | undefined,
-> = {
-  path: PathTemplate extends string ? PathMatchResult<PathTemplate> : undefined
-  contentType: ContentTypeParam extends ContentType
-    ? ContentTypeMatchResult<ContentTypeParam>
+type FileMatchResult<T extends Config = Config> = {
+  path: T['path'] extends string ? PathMatchResult<T['path']> : undefined
+  contentType: T['contentType'] extends ContentType
+    ? ContentTypeMatchResult<T['contentType']>
     : undefined
-  size: Min extends number
-    ? SizeMatchResult
-    : Max extends number
+  size: T['size'] extends SizeMatcherConfig<infer Min, infer Max>
+    ? Min extends number
       ? SizeMatchResult
-      : undefined
+      : Max extends number
+        ? SizeMatchResult
+        : undefined
+    : undefined
 }
 
 type FileMatcherInput = {
@@ -32,14 +30,7 @@ type FileMatcherInput = {
   size: number | undefined
 }
 
-const createFileMatcher = <
-  PathTemplate extends string | undefined,
-  CT extends ContentType | undefined,
-  Min extends number | undefined,
-  Max extends number | undefined,
->(
-  config: Config<PathTemplate, CT, Min, Max>,
-) => {
+const createFileMatcher = <T extends Config>(config: T) => {
   const matchers = {
     path: config.path ? createPathMatcher(config.path) : undefined,
     contentType: config.contentType
@@ -48,7 +39,7 @@ const createFileMatcher = <
     size: config.size ? createSizeMatcher(config.size) : undefined,
   } as const
 
-  type Result = FileMatchResult<PathTemplate, CT, Min, Max>
+  type Result = FileMatchResult<T>
 
   return (input: FileMatcherInput): Result | false => {
     const data = {

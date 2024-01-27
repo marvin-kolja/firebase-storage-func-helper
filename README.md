@@ -27,12 +27,13 @@ import { createFileHandler } from 'firebase-storage-func-helper/dist/v1'
 // declare your handler
 const onChatAttachmentHandler = createFileHandler({
   path: 'chats/:chatId/attachments/:attachmentId',
-  contentType: ['video/mp4', 'video/quicktime'] as const, // If not `as const` it cannot infer the type
+  contentType: ['video/mp4', 'video/quicktime'],
   size: {
     min: 1 * 1024 * 1024, // 1 MB
     max: 10 * 1024 * 1024, // 10 MB
   },
-})((matchResult, object, context) => {
+  // If no `as const` it cannot infer the types for `matchResult`
+} as const)((matchResult, object, context) => {
   const {
     path,
     contentType, // 'video/mp4' | 'video/quicktime'
@@ -74,12 +75,13 @@ import { createFileHandler } from 'firebase-storage-func-helper/dist/v2'
 // declare your handler
 const onChatAttachmentHandler = createFileHandler({
   path: 'chats/:chatId/attachments/:attachmentId',
-  contentType: ['video/mp4', 'video/quicktime'] as const, // If not `as const` it cannot infer the type
+  contentType: ['video/mp4', 'video/quicktime'],
   size: {
     min: 1 * 1024 * 1024, // 1 MB
     max: 10 * 1024 * 1024, // 10 MB
   },
-})((matchResult, event) => {
+  // If no `as const` it cannot infer the types for `matchResult`
+} as const)((matchResult, event) => {
   const {
     path,
     contentType, // 'video/mp4' | 'video/quicktime'

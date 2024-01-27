@@ -1,4 +1,3 @@
-import type { ContentType } from '../content_type'
 import type { Config } from '../config'
 import { createFileMatcher, FileMatchResult } from '../file_matcher'
 
@@ -11,19 +10,10 @@ type HandlerV1<T> = (
   context: EventContext,
 ) => void | Promise<void>
 
-const createFileHandler = <
-  PathTemplate extends string,
-  ContentTypeParam extends ContentType,
-  Min extends number,
-  Max extends number,
->(
-  opts: Config<PathTemplate, ContentTypeParam, Min, Max>,
-) => {
+const createFileHandler = <T extends Config>(opts: T) => {
   const fileMatcher = createFileMatcher(opts)
 
-  type Handler = HandlerV1<
-    FileMatchResult<PathTemplate, ContentTypeParam, Min, Max>
-  >
+  type Handler = HandlerV1<FileMatchResult<T>>
 
   return (handler: Handler) => {
     return (object: ObjectMetadata, context: EventContext) => {
