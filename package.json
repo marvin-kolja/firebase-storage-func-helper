@@ -5,25 +5,40 @@
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.cts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": {
+        "default": "./dist/index.js",
+        "types": "./dist/index.d.ts"
+      },
+      "require": {
+        "default": "./dist/index.cjs",
+        "types": "./dist/index.d.cts"
+      }
     },
     "./v1": {
-      "require": "./dist/v1.cjs",
-      "import": "./dist/v1.js",
-      "types": "./dist/v1.d.ts"
+      "import": {
+        "default": "./dist/v1.js",
+        "types": "./dist/v1.d.ts"
+      },
+      "require": {
+        "default": "./dist/v1.cjs",
+        "types": "./dist/v1.d.cts"
+      }
     },
     "./v2": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": {
+        "default": "./dist/index.js",
+        "types": "./dist/index.d.ts"
+      },
+      "require": {
+        "default": "./dist/index.cjs",
+        "types": "./dist/index.d.cts"
+      }
     }
   },
   "scripts": {
