@@ -14,18 +14,17 @@ The handler has the following configuration:
 | contentType (optional) | `string  \| readonly string[]`   | The content type/s of the file to handle.                                                                                                                                       |
 | size (optional)        | `{ min?: number, max?: number }` | The min and max size that needs to match. One must be provided. <br/> An error is thrown when neither is provided or they are conflicting (negative or max is smaller then min) |
 
-You can import the `createFileHandler` function from the `v1` or `v2` folder depending on which cloud function version you're using. The default entry point is `v2`.
+You can get the `createFileHandler` function from the exported `v1` or `v2`.
 
 ### V1
 
 ```typescript
-import { createFileHandler } from 'firebase-storage-func-helper/v1'
-import { createFileHandler } from 'firebase-storage-func-helper/dist/v1'
+import { v1 } from 'firebase-storage-func-helper'
 ```
 
 ```typescript
 // declare your handler
-const onChatAttachmentHandler = createFileHandler({
+const onChatAttachmentHandler = v1.createFileHandler({
   path: 'chats/:chatId/attachments/:attachmentId',
   contentType: ['video/mp4', 'video/quicktime'],
   size: {
@@ -66,14 +65,12 @@ const onMultipleFile = firebaseFunctions
 ### V2
 
 ```typescript
-import { createFileHandler } from 'firebase-storage-func-helper'
-import { createFileHandler } from 'firebase-storage-func-helper/v2'
-import { createFileHandler } from 'firebase-storage-func-helper/dist/v2'
+import { v2 } from 'firebase-storage-func-helper'
 ```
 
 ```typescript
 // declare your handler
-const onChatAttachmentHandler = createFileHandler({
+const onChatAttachmentHandler = v2.createFileHandler({
   path: 'chats/:chatId/attachments/:attachmentId',
   contentType: ['video/mp4', 'video/quicktime'],
   size: {

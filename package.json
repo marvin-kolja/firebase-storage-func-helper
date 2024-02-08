@@ -9,38 +9,6 @@
   "files": [
     "dist"
   ],
-  "exports": {
-    ".": {
-      "import": {
-        "default": "./dist/index.js",
-        "types": "./dist/index.d.ts"
-      },
-      "require": {
-        "default": "./dist/index.cjs",
-        "types": "./dist/index.d.cts"
-      }
-    },
-    "./v1": {
-      "import": {
-        "default": "./dist/v1.js",
-        "types": "./dist/v1.d.ts"
-      },
-      "require": {
-        "default": "./dist/v1.cjs",
-        "types": "./dist/v1.d.cts"
-      }
-    },
-    "./v2": {
-      "import": {
-        "default": "./dist/index.js",
-        "types": "./dist/index.d.ts"
-      },
-      "require": {
-        "default": "./dist/index.cjs",
-        "types": "./dist/index.d.cts"
-      }
-    }
-  },
   "scripts": {
     "build": "tsup",
     "test": "echo \"Error: no test specified\" && exit 1",
