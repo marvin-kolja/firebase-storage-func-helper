@@ -1,5 +1,5 @@
-import type { ContentType, FlattenContentType } from '../content_type'
-import { isContentType } from '../content_type'
+import type { ContentType, FlattenContentType } from '../content_type.ts'
+import { isContentType } from '../content_type.js'
 
 type ContentTypeMatchResult<ContentTypeParam extends ContentType> =
   FlattenContentType<ContentTypeParam>

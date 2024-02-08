@@ -1,5 +1,5 @@
-import type { ContentType } from './content_type'
-import { SizeMatcherConfig } from './matcher/size_matcher'
+import type { ContentType } from './content_type.ts'
+import type { SizeMatcherConfig } from './matcher/size_matcher.ts'
 
 export type Config<
   PathTemplate extends string | undefined = string,

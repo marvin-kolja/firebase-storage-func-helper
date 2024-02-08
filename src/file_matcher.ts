@@ -1,14 +1,16 @@
-import type { ContentType } from './content_type'
-import type { Config } from './config'
+import type { ContentType } from './content_type.ts'
+import type { Config } from './config.ts'
 import {
   createPathMatcher,
   createContentTypeMatcher,
   createSizeMatcher,
+} from './matcher/index.js'
+import type {
   PathMatchResult,
   ContentTypeMatchResult,
   SizeMatchResult,
-} from './matcher'
-import { SizeMatcherConfig } from './matcher/size_matcher'
+  SizeMatcherConfig,
+} from './matcher/index.ts'
 
 type FileMatchResult<T extends Config = Config> = {
   path: T['path'] extends string ? PathMatchResult<T['path']> : undefined
