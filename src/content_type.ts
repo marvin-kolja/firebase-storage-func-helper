@@ -4,16 +4,17 @@ type FlattenContentType<T extends ContentType> = T extends string
   ? T
   : T[number]
 
-const isContentType = <ContentTypeParam extends ContentType>(
+const getContentType = <ContentTypeParam extends ContentType>(
   contentType: ContentTypeParam,
   type: string,
-): type is FlattenContentType<ContentTypeParam> => {
+): FlattenContentType<ContentTypeParam> | undefined => {
   if (Array.isArray(contentType)) {
-    return contentType.includes(type)
-  } else {
-    return contentType === type
+    return contentType.find((ct) => ct === type)
+  } else if (contentType === type) {
+    return type as FlattenContentType<ContentTypeParam>
   }
+  return undefined
 }
 
-export { isContentType }
+export { getContentType }
 export type { ContentType, FlattenContentType }
