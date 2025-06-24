@@ -2,7 +2,7 @@ import type { Config } from '../config.ts'
 import type { FileMatchResult } from '../file_matcher.ts'
 import { createFileMatcher } from '../file_matcher.js'
 
-import type { EventContext } from 'firebase-functions'
+import type { EventContext } from 'firebase-functions/v1'
 import { ObjectMetadata } from 'firebase-functions/v1/storage'
 
 type HandlerV1<T> = (
